@@ -24,26 +24,34 @@
     
     <div class="input-form">
         <input id="program" placeholder="Nama Program" class="full-width">
-        <input id="bidang" placeholder="Bidang">
-        <input id="tempat" placeholder="Tempat">
+    <input id="bidang" placeholder="Bidang">
+    <input id="tempat" placeholder="Tempat">
+    
+    <div class="input-group">
+        <label>Tarikh Program:</label>
         <input type="date" id="tarikh">
+    </div>
+    <div class="input-group">
+        <label>Masa Program:</label>
         <input type="time" id="masa">
-        <input id="kehadiran" placeholder="Kehadiran / Penyertaan">
-        <input id="jemputan" placeholder="Jemputan">
-        
-        <textarea id="catatan" placeholder="Catatan / Ringkasan Aktiviti" class="full-width"></textarea>
-        <textarea id="penambahbaikan" placeholder="Penambahbaikan" class="full-width"></textarea>
+    </div>
 
-        <div class="full-width" style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; background: #eee; padding: 10px; border-radius: 5px;">
-            <div><label>Nama Penyedia:</label><input id="nama1" placeholder="Nama Guru"></div>
-            <div><label>Nama Penyemak:</label><input id="nama2" placeholder="Nama Penyelaras/PK"></div>
-            <div><label>Nama Pengesah:</label><input id="nama3" placeholder="Nama Pengetua"></div>
-        </div>
+    <input id="kehadiran" placeholder="Kehadiran / Penyertaan">
+    <input id="jemputan" placeholder="Jemputan">
+    
+    <textarea id="catatan" placeholder="Catatan / Ringkasan Aktiviti" class="full-width"></textarea>
+    <textarea id="penambahbaikan" placeholder="Penambahbaikan" class="full-width"></textarea>
 
-        <div class="full-width">
-            <label>Muat Naik Gambar (Max 6):</label>
-            <input type="file" id="gambar" multiple accept="image/*">
-        </div>
+    <div class="full-width signature-inputs">
+        <div><label>Penyedia:</label><input id="nama1" placeholder="Nama Guru"></div>
+        <div><label>Penyemak:</label><input id="nama2" placeholder="Nama Penyelaras/PK"></div>
+        <div><label>Pengesah:</label><input id="nama3" placeholder="Nama Pengetua"></div>
+    </div>
+
+    <div class="full-width">
+        <label>Muat Naik Gambar (Max 6):</label>
+        <input type="file" id="gambar" multiple accept="image/*">
+    </div>
     </div>
 
     <div class="controls">
@@ -158,3 +166,4 @@ function downloadPDF() {
 </body>
 
 </html>
+
