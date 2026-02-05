@@ -172,4 +172,79 @@
         font-size: 11px; 
         font-weight: bold; 
     }
+	
+	.website-header {
+    background: transparent; /* No background color */
+    color: #2c3e50; /* Dark professional text color */
+    padding: 30px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 0px white; /* Subtle white glow to make text pop against background */
+	}
+
+	.website-header img {
+		height: 90px; /* Made the logo slightly larger since there's no box */
+		width: auto;
+		margin-right: 20px;
+		/* Optional: filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.2)); */
+	}
+
+	.header-text h1 {
+		margin: 0;
+		font-size: 28px;
+		font-weight: 800;
+		letter-spacing: 1px;
+		line-height: 1.1;
+	}
+
+	.header-text p {
+		margin: 0;
+		font-size: 15px;
+		font-weight: 600;
+		color: #34495e;
+	}
+	
+	/* Mobile Styles */
+	@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+        margin: 10px;
+        width: auto;
+    }
+
+    /* Change form to 1 column instead of 2 */
+    .input-form {
+        grid-template-columns: 1fr;
+    }
+
+    .full-width {
+        grid-column: span 1;
+    }
+
+    /* Change image grid to 2 columns instead of 3 for better visibility */
+    .images-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Adjust button sizes for thumbs */
+    button {
+        width: 100%;
+        margin: 5px 0;
+    }
+	
+	.website-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .website-header img {
+        margin-right: 0;
+        margin-bottom: 10px;
+        height: 70px;
+    }
+    .header-text h1 {
+        font-size: 20px;
+    }
+}
 </style>
