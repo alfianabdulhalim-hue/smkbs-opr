@@ -208,10 +208,11 @@
 	
 	/* Mobile Styles */
 	@media (max-width: 600px) {
+	.bg-wrapper { padding: 10px; }
     .container {
         padding: 15px;
-        margin: 10px;
-        width: auto;
+        margin: 5px;
+        width: 95%;
     }
 
     /* Change form to 1 column instead of 2 */
@@ -247,4 +248,5 @@
         font-size: 20px;
     }
 }
+
 </style>
