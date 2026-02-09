@@ -311,9 +311,32 @@
 	    transform: translateY(-2px);
 	    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 	}
+
+		.btn-drive {
+	    background-color: #27ae60; /* Professional Green */
+	    color: white;
+	    border: none;
+	    padding: 12px 20px;
+	    border-radius: 8px;
+	    font-size: 16px;
+	    font-weight: bold;
+	    cursor: pointer;
+	    transition: 0.3s;
+	    width: 100%;
+	    margin-top: 10px;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    gap: 10px;
+	}
+
+.btn-drive:hover {
+    background-color: #219150;
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+}
 	
 	/* Mobile Styles */
-	@media (max-width: 600px) {
+@media (max-width: 600px) {
 	.bg-wrapper { padding: 10px; }
     .container {
         padding: 15px;
@@ -363,9 +386,15 @@
     .header-text h1 {
         font-size: 20px;
     }
+	.controls {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 
 </style>
+
 
 
 
