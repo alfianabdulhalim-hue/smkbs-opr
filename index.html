@@ -198,16 +198,20 @@ async function uploadToDrive() {
             const base64data = reader.result.split(',')[1];
             
             // SEND TO GOOGLE APPS SCRIPT
-            const scriptUrl = "https://script.google.com/macros/s/AKfycbyM8b29i6X5YclB50rGG7QRk9esCYOI4QUGWgFGQQ9ltnQMiDOSZXcfFRe82XF_nBoRhg/exec"; 
+            const scriptUrl = "https://script.google.com/macros/s/AKfycbyMS4eQhrWJxh36BDHVCIiKTTsBLJjrOkKZUirV4ik-cMX8-jJyYcqM9KA5Kt2hfHEncw/exec"; 
             
             const response = await fetch(scriptUrl, {
-                method: 'POST',
-                body: JSON.stringify({
-                    base64: base64data,
-                    fileName: programName + ".pdf",
-                    mimeType: "application/pdf"
-                })
+			    method: 'POST',
+			    mode: 'no-cors', // This prevents the browser from blocking the request
+			    body: JSON.stringify({
+			        base64: base64data,
+			        fileName: programName + ".pdf"
+			    })
             });
+
+			alert("Proses menghantar selesai. Sila semak folder Google Drive anda.");
+			btn.innerText = "3. Selesai Dihantar";
+			btn.disabled = false;
 
             const result = await response.json();
             if(result.result === "success") {
@@ -229,6 +233,7 @@ async function uploadToDrive() {
 </script>
 </body>
 </html>
+
 
 
 
