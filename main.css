@@ -236,6 +236,27 @@
 		font-weight: 600;
 		color: #34495e;
 	}
+
+	.input-group {
+	    display: flex;
+	    flex-direction: column;
+	    text-align: left;
+	    margin-bottom: 5px; /* Adds space between groups */
+	}
+	
+	.input-group label {
+	    font-size: 13px; /* Slightly larger for main sections */
+	    font-weight: bold;
+	    color: #2c3e50;
+	    margin-bottom: 5px;
+	    text-transform: uppercase; /* Makes it look like a section header */
+	    letter-spacing: 0.5px;
+	}
+	
+	textarea {
+	    min-height: 100px; /* Gives them a nice starting height */
+	    resize: vertical; /* Allows users to drag it larger if needed */
+	}
 	
 	/* Mobile Styles */
 	@media (max-width: 600px) {
@@ -246,6 +267,9 @@
         width: 95%;
     }
 
+	.input-group label {
+        font-size: 11px;
+    }
     /* Change form to 1 column instead of 2 */
     .input-form {
         grid-template-columns: 1fr;
@@ -284,4 +308,5 @@
 }
 
 </style>
+
 
