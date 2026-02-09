@@ -48,6 +48,20 @@
 	}
 	
 	/* Adjusting your grey signature box for mobile */
+	.sig-table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        margin-top: 15px; 
+    }
+    
+    .sig-table td { 
+        border: 1px solid #000; 
+        width: 33.33%; 
+        padding: 10px; 
+        height: 100px; 
+        vertical-align: top; 
+    }
+
 	.signature-inputs {
 	    display: grid;
 	    grid-template-columns: 1fr 1fr 1fr;
@@ -333,6 +347,7 @@
 }
 
 </style>
+
 
 
 
