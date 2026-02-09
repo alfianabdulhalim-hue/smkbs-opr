@@ -51,17 +51,38 @@
 	.signature-inputs {
 	    display: grid;
 	    grid-template-columns: 1fr 1fr 1fr;
-	    gap: 10px;
-	    background: #eee;
-	    padding: 10px;
-	    border-radius: 5px;
+	    gap: 15px;
+	    background: rgba(238, 238, 238, 0.7); /* Slightly transparent grey */
+	    padding: 15px;
+	    border-radius: 8px;
+	    margin-top: 10px;
 	}
 	
-	.signature-inputs label {
+	.sig-input-group {
+	    display: flex;
+	    flex-direction: column;
+	}
+	
+	.sig-input-group label {
 	    font-size: 11px;
 	    font-weight: bold;
-	    display: block;
-	    margin-bottom: 3px;
+	    color: #2c3e50;
+	    text-transform: uppercase;
+	}
+	
+	/* This creates the space for the actual signature/stamp */
+	.signature-space {
+	    height: 40px; /* Adjust this height for more or less space */
+	}
+	
+	.sig-input-group input {
+	    border: none;
+	    border-bottom: 1px solid #333; /* Makes it look like a signature line */
+	    background: transparent;
+	    border-radius: 0;
+	    padding: 5px 0;
+	    font-weight: bold;
+	    text-align: center;
 	}
     
     .full-width { grid-column: span 2; }
@@ -308,6 +329,7 @@
 }
 
 </style>
+
 
 
 
