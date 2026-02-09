@@ -223,6 +223,60 @@ async function uploadToDrive() {
         btn.disabled = false;
     }
 }
+
+async function uploadToDrive() {
+    const element = document.getElementById('report-to-print');
+    if (!element) return alert("Sila Jana Laporan dahulu!");
+    
+    const programName = document.getElementById('program').value || "Laporan_OPR";
+    const btn = document.querySelector('.btn-drive');
+    
+    btn.innerText = "Sedang Menghantar...";
+    btn.disabled = true;
+
+    const opt = {
+        margin: [10, 5, 10, 5],
+        filename: programName + '.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    try {
+        // 1. Generate the PDF blob
+        const blob = await html2pdf().set(opt).from(element).outputPdf('blob');
+        
+        // 2. Convert to Base64
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = async function() {
+            const base64data = reader.result.split(',')[1];
+            
+            // 3. Your NEW Deployment URL
+            const scriptUrl = "https://script.google.com/macros/s/AKfycbwDCV_Ozyp7bPD3K4C86JEuzWUMsg3M3oxYsNdcBH-rYuQIRVRcjFa8BVYGNYJ0K9gV4w/exec"; 
+            
+            // 4. Send to Google
+            await fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors', 
+                headers: { 'Content-Type': 'text/plain' },
+                body: JSON.stringify({
+                    base64: base64data,
+                    fileName: programName + ".pdf"
+                })
+            });
+
+            alert("Tahniah! Laporan PDF anda telah selamat dihantar ke Google Drive.");
+            btn.innerText = "3. Berjaya Dihantar";
+            btn.disabled = false;
+        };
+    } catch (error) {
+        console.error(error);
+        alert("Gagal menghantar: " + error);
+        btn.innerText = "3. Simpan Terus ke Drive";
+        btn.disabled = false;
+    }
+}
 	
 </script>
 </body>
