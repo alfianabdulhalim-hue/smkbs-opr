@@ -39,9 +39,15 @@
     <input id="kehadiran" placeholder="Kehadiran / Penyertaan">
     <input id="jemputan" placeholder="Jemputan">
     
-    <textarea id="catatan" placeholder="Catatan / Ringkasan Aktiviti" class="full-width"></textarea>
-    <textarea id="penambahbaikan" placeholder="Penambahbaikan" class="full-width"></textarea>
-
+    <div class="full-width input-group">
+	    <label>Catatan / Ringkasan Aktiviti:</label>
+	    <textarea id="catatan" placeholder="Masukkan ringkasan aktiviti di sini..."></textarea>
+	</div>
+	<div>
+		<label>Penambahbaikan:</label>
+	    <textarea id="penambahbaikan" placeholder="Masukkan cadangan penambahbaikan..."></textarea>
+	</div>
+		
     <div class="full-width signature-inputs">
         <div><label>Penyedia:</label><input id="nama1" placeholder="Nama Guru"></div>
         <div><label>Penyemak:</label><input id="nama2" placeholder="Nama Penyelaras/PK"></div>
@@ -166,4 +172,5 @@ function downloadPDF() {
 </body>
 
 </html>
+
 
