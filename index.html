@@ -107,21 +107,24 @@ function generate() {
         <div class="text-box">${document.getElementById('penambahbaikan').value || ' '}</div>
 
 		<table class="sig-table">
-            <tr>
-                <td>
-                    <div class="sig-label">DISEDIAKAN OLEH,</div>
-                    <div class="sig-name">( ${document.getElementById('nama1').value.toUpperCase()} )</div>
-                </td>
-                <td>
-                    <div class="sig-label">DISEMAK OLEH,</div>
-                    <div class="sig-name">( ${document.getElementById('nama2').value.toUpperCase()} )</div>
-                </td>
-                <td>
-                    <div class="sig-label">DISAHKAN OLEH,</div>
-                    <div class="sig-name">( ${document.getElementById('nama3').value.toUpperCase()} )</div>
-                </td>
-            </tr>
-        </table>
+		    <tr>
+		        <td>
+		            <div class="sig-label">DISEDIAKAN OLEH:</div>
+		            <div style="height: 50px;"></div> <div style="border-top: 1px solid black; width: 80%; margin: 0 auto;"></div>
+		            <div style="text-align: center; font-weight: bold; margin-top: 5px;">${document.getElementById('nama1').value.toUpperCase()}</div>
+		        </td>
+		        <td>
+		            <div class="sig-label">DISEMAK OLEH:</div>
+		            <div style="height: 50px;"></div> <div style="border-top: 1px solid black; width: 80%; margin: 0 auto;"></div>
+		            <div style="text-align: center; font-weight: bold; margin-top: 5px;">${document.getElementById('nama2').value.toUpperCase()}</div>
+		        </td>
+		        <td>
+		            <div class="sig-label">DISAHKAN OLEH:</div>
+		            <div style="height: 50px;"></div> <div style="border-top: 1px solid black; width: 80%; margin: 0 auto;"></div>
+		            <div style="text-align: center; font-weight: bold; margin-top: 5px;">${document.getElementById('nama3').value.toUpperCase()}</div>
+		        </td>
+		    </tr>
+		</table>
     </div>`;
 
     output.innerHTML = content;
@@ -171,61 +174,52 @@ function downloadPDF() {
 
 async function uploadToDrive() {
     const element = document.getElementById('report-to-print');
-    const programName = document.getElementById('program').value || "Laporan_OPR";
+    if (!element) return alert("Sila Jana Laporan dahulu!");
     
-    // Show a "Processing" message to the user
+    const programName = document.getElementById('program').value || "Laporan_OPR";
     const btn = document.querySelector('.btn-drive');
+    
     btn.innerText = "Sedang Menghantar...";
     btn.disabled = true;
 
-    // Generate the PDF as a Blob
     const opt = {
-        margin: 10,
+        margin: [10, 5, 10, 5],
         filename: programName + '.pdf',
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
+        html2canvas: { scale: 2, useCORS: true },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
     try {
-        const pdfWorker = html2pdf().set(opt).from(element).outputPdf('blob');
-        const blob = await pdfWorker;
+        const blob = await html2pdf().set(opt).from(element).outputPdf('blob');
         
-        // Convert Blob to Base64 for transmission
         const reader = new FileReader();
         reader.readAsDataURL(blob);
         reader.onloadend = async function() {
             const base64data = reader.result.split(',')[1];
-            
-            // SEND TO GOOGLE APPS SCRIPT
             const scriptUrl = "https://script.google.com/macros/s/AKfycbyMS4eQhrWJxh36BDHVCIiKTTsBLJjrOkKZUirV4ik-cMX8-jJyYcqM9KA5Kt2hfHEncw/exec"; 
             
-            const response = await fetch(scriptUrl, {
-			    method: 'POST',
-			    mode: 'no-cors', // This prevents the browser from blocking the request
-			    body: JSON.stringify({
-			        base64: base64data,
-			        fileName: programName + ".pdf"
-			    })
+            // Sending as text/plain is a trick to bypass CORS preflight
+            await fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors', 
+                headers: { 'Content-Type': 'text/plain' },
+                body: JSON.stringify({
+                    base64: base64data,
+                    fileName: programName + ".pdf"
+                })
             });
 
-			alert("Proses menghantar selesai. Sila semak folder Google Drive anda.");
-			btn.innerText = "3. Selesai Dihantar";
-			btn.disabled = false;
-
-            const result = await response.json();
-            if(result.result === "success") {
-                alert("Berjaya! Laporan telah disimpan ke Google Drive.");
-                btn.innerText = "3. Berjaya Dihantar";
-            } else {
-                alert("Ralat: " + result.error);
-                btn.innerText = "Gagal. Cuba Lagi";
-                btn.disabled = false;
-            }
+            // Since mode is 'no-cors', we don't try to read 'response.json()'
+            // We just inform the user the request was sent.
+            alert("Proses menghantar selesai. Sila semak folder Google Drive anda sebentar lagi.");
+            btn.innerText = "3. Selesai Dihantar";
+            btn.disabled = false;
         };
     } catch (error) {
         console.error(error);
-        alert("Gagal menjana PDF.");
+        alert("Gagal menjana PDF atau menghantar.");
+        btn.innerText = "3. Simpan Terus ke Drive";
         btn.disabled = false;
     }
 }
@@ -233,6 +227,7 @@ async function uploadToDrive() {
 </script>
 </body>
 </html>
+
 
 
 
