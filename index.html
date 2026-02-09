@@ -196,34 +196,38 @@ async function uploadToDrive() {
         const reader = new FileReader();
         reader.readAsDataURL(blob);
         reader.onloadend = async function() {
-            const base64data = reader.result.split(',')[1]; 
+            const base64data = reader.result.split(',')[1];
+            const scriptUrl = "https://script.google.com/macros/s/AKfycbyMS4eQhrWJxh36BDHVCIiKTTsBLJjrOkKZUirV4ik-cMX8-jJyYcqM9KA5Kt2hfHEncw/exec"; 
             
             // Sending as text/plain is a trick to bypass CORS preflight
-            const scriptUrl = "https://script.google.com/macros/s/AKfycbzl5xm6bgaHY5M03SoucVBQotnZffcy6X5yGXsB1pilPkDOPfnGsPAVHdy7t9jb6GNNOw/exec"; 
+            await fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors', 
+                headers: { 'Content-Type': 'text/plain' },
+                body: JSON.stringify({
+                    base64: base64data,
+                    fileName: programName + ".pdf"
+                })
+            });
 
-			// We send it as a simple string to avoid CORS "Pre-flight" checks
-			const payload = JSON.stringify({
-			    base64: base64data,
-			    fileName: programName + ".pdf"
-			});
-			
-			await fetch(scriptUrl, {
-			    method: 'POST',
-			    mode: 'no-cors', 
-			    headers: {
-			        'Content-Type': 'text/plain' // Tells browser "this is just text, don't block it"
-			    },
-			    body: payload
-			});
-			
-			alert("Hantaran dihantar ke Google. Sila tunggu 10-20 saat untuk fail muncul dalam Drive.");
-			btn.innerText = "3. Selesai Dihantar";
-			btn.disabled = false;
+            // Since mode is 'no-cors', we don't try to read 'response.json()'
+            // We just inform the user the request was sent.
+            alert("Proses menghantar selesai. Sila semak folder Google Drive anda sebentar lagi.");
+            btn.innerText = "3. Selesai Dihantar";
+            btn.disabled = false;
+        };
+    } catch (error) {
+        console.error(error);
+        alert("Gagal menjana PDF atau menghantar.");
+        btn.innerText = "3. Simpan Terus ke Drive";
+        btn.disabled = false;
+    }
 }
 	
 </script>
 </body>
 </html>
+
 
 
 
