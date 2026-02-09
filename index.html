@@ -198,7 +198,7 @@ async function uploadToDrive() {
             const base64data = reader.result.split(',')[1];
             
             // SEND TO GOOGLE APPS SCRIPT
-            const scriptUrl = "PASTE_YOUR_WEB_APP_URL_HERE"; 
+            const scriptUrl = "https://script.google.com/macros/s/AKfycbyM8b29i6X5YclB50rGG7QRk9esCYOI4QUGWgFGQQ9ltnQMiDOSZXcfFRe82XF_nBoRhg/exec"; 
             
             const response = await fetch(scriptUrl, {
                 method: 'POST',
@@ -229,6 +229,7 @@ async function uploadToDrive() {
 </script>
 </body>
 </html>
+
 
 
 
