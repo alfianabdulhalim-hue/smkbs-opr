@@ -105,22 +105,22 @@ function generate() {
         <div class="section-title">PENAMBAHBAIKAN:</div>
         <div class="text-box">${document.getElementById('penambahbaikan').value || ' '}</div>
 
-        <table class="sig-table">
-            <tr>
-                <td>
-                    <div class="sig-label">DISEDIAKAN OLEH,</div>
-                    <div class="sig-name">( ${document.getElementById('nama1').value.toUpperCase()} )</div>
-                </td>
-                <td>
-                    <div class="sig-label">DISEMAK OLEH,</div>
-                    <div class="sig-name">( ${document.getElementById('nama2').value.toUpperCase()} )</div>
-                </td>
-                <td>
-                    <div class="sig-label">DISAHKAN OLEH,</div>
-                    <div class="sig-name">( ${document.getElementById('nama3').value.toUpperCase()} )</div>
-                </td>
-            </tr>
-        </table>
+		<div class="full-width signature-inputs">
+		    <div class="sig-input-group">
+		        <label>Disediakan Oleh:</label>
+		        <div class="signature-space"></div> <input id="nama1" placeholder="Nama Guru">
+		    </div>
+		    <div class="sig-input-group">
+		        <label>Disemak Oleh:</label>
+		        <div class="signature-space"></div>
+		        <input id="nama2" placeholder="Nama Penyelaras/PK">
+		    </div>
+		    <div class="sig-input-group">
+		        <label>Disahkan Oleh:</label>
+		        <div class="signature-space"></div>
+		        <input id="nama3" placeholder="Nama Pengetua">
+		    </div>
+		</div>
     </div>`;
 
     output.innerHTML = content;
@@ -172,6 +172,7 @@ function downloadPDF() {
 </body>
 
 </html>
+
 
 
 
