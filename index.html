@@ -197,7 +197,7 @@ async function uploadToDrive() {
         reader.readAsDataURL(blob);
         reader.onloadend = async function() {
             const base64data = reader.result.split(',')[1];
-            const scriptUrl = "https://script.google.com/macros/s/AKfycbyMS4eQhrWJxh36BDHVCIiKTTsBLJjrOkKZUirV4ik-cMX8-jJyYcqM9KA5Kt2hfHEncw/exec"; 
+            const scriptUrl = "https://script.google.com/macros/s/AKfycbzl5xm6bgaHY5M03SoucVBQotnZffcy6X5yGXsB1pilPkDOPfnGsPAVHdy7t9jb6GNNOw/exec"; 
             
             // Sending as text/plain is a trick to bypass CORS preflight
             await fetch(scriptUrl, {
@@ -227,6 +227,7 @@ async function uploadToDrive() {
 </script>
 </body>
 </html>
+
 
 
 
