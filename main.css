@@ -296,8 +296,12 @@
         grid-template-columns: 1fr;
     }
 
-    .signature-inputs {
-        grid-template-columns: 1fr; /* Stack names on top of each other on mobile */
+
+	.signature-inputs {
+        grid-template-columns: 1fr;/* Stack names on top of each other on mobile */
+    }
+    .signature-space {
+        height: 30px; /* Slightly smaller gap on mobile to save screen space */
     }
     
     .input-form {
@@ -329,6 +333,7 @@
 }
 
 </style>
+
 
 
 
