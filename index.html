@@ -47,24 +47,12 @@
 		<label>Penambahbaikan:</label>
 	    <textarea id="penambahbaikan" placeholder="Masukkan cadangan penambahbaikan..."></textarea>
 	</div>
-		
 
-		<div class="full-width signature-inputs">
-		    <div class="sig-input-group">
-		        <label>Disediakan Oleh:</label>
-		        <div class="signature-space"></div> <input id="nama1" placeholder="Nama Guru">
-		    </div>
-		    <div class="sig-input-group">
-		        <label>Disemak Oleh:</label>
-		        <div class="signature-space"></div>
-		        <input id="nama2" placeholder="Nama Penyelaras/PK">
-		    </div>
-		    <div class="sig-input-group">
-		        <label>Disahkan Oleh:</label>
-		        <div class="signature-space"></div>
-		        <input id="nama3" placeholder="Nama Pengetua">
-		    </div>
-		</div>
+		<div class="full-width" style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; background: #eee; padding: 10px; border-radius: 5px;">
+            <div><label>Nama Penyedia:</label><input id="nama1" placeholder="Nama Guru"></div>
+            <div><label>Nama Penyemak:</label><input id="nama2" placeholder="Nama Penyelaras/PK"></div>
+            <div><label>Nama Pengesah:</label><input id="nama3" placeholder="Nama Pengetua"></div>
+        </div>
 
     <div class="full-width">
         <label>Muat Naik Gambar (Max 6):</label>
@@ -184,6 +172,7 @@ function downloadPDF() {
 </body>
 
 </html>
+
 
 
 
