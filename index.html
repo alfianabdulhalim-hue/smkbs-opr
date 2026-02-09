@@ -63,7 +63,7 @@
     <div class="controls">
         <button class="btn-preview" onclick="generate()">1. Jana Laporan</button>
         <button class="btn-download" onclick="downloadPDF()">2. Simpan ke PDF</button>
-		<button class="btn-drive" onclick="openDrive()">3. Hantar ke Google Drive</button>
+		<button class="btn-drive" onclick="uploadToDrive()">3. Simpan Terus ke Drive</button>
     </div>
 
     <div id="output"></div>
@@ -169,14 +169,67 @@ function downloadPDF() {
     html2pdf().set(opt).from(element).save();
 }
 
-function openDrive() {
-    // Replace the link below with the real one when you get it
-    window.open("https://drive.google.com/drive/folders/13j6Sh3G8zkBqA-luKRJmvgNP8S2a45Ls", "_blank");
+async function uploadToDrive() {
+    const element = document.getElementById('report-to-print');
+    const programName = document.getElementById('program').value || "Laporan_OPR";
+    
+    // Show a "Processing" message to the user
+    const btn = document.querySelector('.btn-drive');
+    btn.innerText = "Sedang Menghantar...";
+    btn.disabled = true;
+
+    // Generate the PDF as a Blob
+    const opt = {
+        margin: 10,
+        filename: programName + '.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    try {
+        const pdfWorker = html2pdf().set(opt).from(element).outputPdf('blob');
+        const blob = await pdfWorker;
+        
+        // Convert Blob to Base64 for transmission
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = async function() {
+            const base64data = reader.result.split(',')[1];
+            
+            // SEND TO GOOGLE APPS SCRIPT
+            const scriptUrl = "PASTE_YOUR_WEB_APP_URL_HERE"; 
+            
+            const response = await fetch(scriptUrl, {
+                method: 'POST',
+                body: JSON.stringify({
+                    base64: base64data,
+                    fileName: programName + ".pdf",
+                    mimeType: "application/pdf"
+                })
+            });
+
+            const result = await response.json();
+            if(result.result === "success") {
+                alert("Berjaya! Laporan telah disimpan ke Google Drive.");
+                btn.innerText = "3. Berjaya Dihantar";
+            } else {
+                alert("Ralat: " + result.error);
+                btn.innerText = "Gagal. Cuba Lagi";
+                btn.disabled = false;
+            }
+        };
+    } catch (error) {
+        console.error(error);
+        alert("Gagal menjana PDF.");
+        btn.disabled = false;
+    }
 }
 	
 </script>
 </body>
 </html>
+
 
 
 
