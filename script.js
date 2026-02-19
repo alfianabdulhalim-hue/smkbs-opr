@@ -11,6 +11,20 @@ function generate() {
         alert("Sila pilih Bidang terlebih dahulu!");
         return; // This stops the report from being generated
     }
+	
+	const gambarInput = document.getElementById('gambar');
+    let imagesHtml = '';
+
+    // PERATURAN BARU: Hanya jana bahagian imej jika ada fail dipilih
+    if (gambarInput.files && gambarInput.files.length > 0) {
+        imagesHtml = `
+            <div class="images-grid">
+                ${Array.from(gambarInput.files).map(file => 
+                    `<img src="${URL.createObjectURL(file)}" alt="Gambar Program">`
+                ).join('')}
+            </div>
+        `;
+    }
     
     const content = `
     <div class="report-content" id="report-to-print">
@@ -37,16 +51,16 @@ function generate() {
         <div class="images-grid" id="imageContainer"></div>
 
         <div class="section-title">RINGKASAN AKTIVITI:</div>
-        <div class="text-box">${document.getElementById('ringkasan').value || ' '}</div>
+        <div class="text-box">${document.getElementById('ringkasan').value.toUpperCase() || ' '}</div>
 		
 		<div class="section-title">KEKUATAN:</div>
-        <div class="text-box">${document.getElementById('kekuatan').value || ' '}</div>
+        <div class="text-box">${document.getElementById('kekuatan').value.toUpperCase() || ' '}</div>
 		
 		<div class="section-title">KELEMAHAN:</div>
-        <div class="text-box">${document.getElementById('kelemahan').value || ' '}</div>
+        <div class="text-box">${document.getElementById('kelemahan').value.toUpperCase() || ' '}</div>
 
         <div class="section-title">PENAMBAHBAIKAN:</div>
-        <div class="text-box">${document.getElementById('penambahbaikan').value || ' '}</div>
+        <div class="text-box">${document.getElementById('penambahbaikan').value.toUpperCase() || ' '}</div>
 
 		<table class="sig-table">
 		    <tr>
@@ -116,6 +130,24 @@ async function uploadToDrive() {
         alert("Sila isi maklumat dan tekan 'Jana Laporan' terlebih dahulu.");
         return;
     }
+	
+	// --- BAHAGIAN PENTING: TUNGGU IMEJ LOAD ---
+    const images = element.getElementsByTagName('img');
+    const imagePromises = [];
+
+    for (let img of images) {
+        if (img.src && !img.complete) {
+            imagePromises.push(new Promise((resolve, reject) => {
+                img.onload = resolve;
+                img.onerror = resolve; // Teruskan juga jika satu imej rosak
+            }));
+        }
+    }
+    
+    // Tunggu sehingga semua imej selesai loading
+    await Promise.all(imagePromises);
+    // Beri sedikit masa tambahan (0.5 saat) untuk rendering browser
+    await new Promise(resolve => setTimeout(resolve, 500));
 
     // Paparkan mesej loading (optional)
     console.log("Sedang menyediakan PDF...");
